@@ -1,6 +1,6 @@
 **Vuldetta** (from “Vulnerability” and “Detection”) is a free and open source web API for Linux vulnerability detection
 
-![vuldetta logo](https://github.com/leonov-av/vuldetta/blob/master/logo/vuldetta_line.png)
+![vuldetta logo](https://github.com/leonov-av/vuldetta/blob/main/logo/vuldetta_line.png)
 
 ## Why is this needed?
 
