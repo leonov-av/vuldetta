@@ -2,6 +2,8 @@ from lxml import etree
 import re
 
 def get_processed_ubuntu_oval(xml_content):
+    tests = dict()
+
     p = etree.XMLParser(huge_tree=True, ns_clean=True, recover=True, encoding='utf-8')
     root = etree.fromstring(text=xml_content, parser=p)
     definitions = list()
@@ -39,9 +41,17 @@ def get_processed_ubuntu_oval(xml_content):
                         #     print(definition_dict['criteria']['tests'])
                         #     exit()
                     definitions.append(definition_dict)
-        # if block.tag == "{http://oval.mitre.org/XMLSchema/oval-definitions-5}tests":
-        #     for test in block:
-        #         print(etree.tostring(test, encoding='utf8', method='xml'))
+        if block.tag == "{http://oval.mitre.org/XMLSchema/oval-definitions-5}tests":
+            for test in block:
+                test_description = {}
+                for test_obj_state in test:
+                    if "object_ref" in test_obj_state.attrib:
+                        test_description["object_ref"] = test_obj_state.attrib["object_ref"]
+                    if "state_ref" in test_obj_state.attrib:
+                        test_description["state_ref"] = test_obj_state.attrib["state_ref"]
+                tests[test.attrib['id']] = test_description
+                # print(etree.tostring(test_obj_state, encoding='utf8', method='xml'))
+    print(tests)
     return definitions
 
 
